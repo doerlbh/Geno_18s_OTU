@@ -12,11 +12,16 @@ for j in `cat rslist`; do
 		rm *out.txt;
 	done
 
-	sed -i '' 's/.*PMID/PMID/g' *PMID;
-	sed -i '' "s#</a>] #$(printf '\t')#g" *PMID;
-	sed -i -e "s/^/$j$(printf '\t')/" *PMID;
+	for k in *e; do
+		cat $k ${k//-e/} > ${k//-e/.combo};
+	done
+
+	sed -i '' 's/.*PMID/PMID/g' *.combo;
+	sed -i '' "s#</a>] #$(printf '\t')#g" *.combo;
+	sed -i -e "s/^/$j$(printf '\t')/" *.combo;
 done
 
-cat *PMID >> PMIDlist$now;
+cat *.combo >> PMIDlist$now;
+#rm Rs*;
 
 
