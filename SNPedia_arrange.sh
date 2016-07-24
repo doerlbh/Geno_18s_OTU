@@ -18,7 +18,7 @@ for k in `cat vir_list*`; do
 				grep ">PMID"  $i > temp;
 				sed -i '' 's/.*PMID/PMID/g' temp;
 				sed -i '' "s#</a>] #$(printf '\t')#g" temp;
-				sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" *PMID*;
+				sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" temp;
 				sed -i '' "s#</a>]#$(printf '\t')#g" temp;
 				sed -i -e "s/^/$j$(printf '\t')/" temp;
 				rm $i;
