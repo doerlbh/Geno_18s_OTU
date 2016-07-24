@@ -14,15 +14,16 @@ for k in `cat vir_list*`; do
 		python SNPedia_scrape.py $j;
 
 			for i in *out.txt; do
-				temp = ${i//out.txt/PMID}
-				grep ">PMID"  $i > temp;
-				sed -i '' 's/.*PMID/PMID/g' temp;
-				sed -i '' "s#</a>] #$(printf '\t')#g" temp;
-				sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" temp;
-				sed -i '' "s#</a>]#$(printf '\t')#g" temp;
-				sed -i -e "s/^/$j$(printf '\t')/" temp;
+				echo $i
+				echo ${i//out.txt/PMID};
+				grep ">PMID"  $i > ${i//out.txt/PMID};
+				sed -i '' 's/.*PMID/PMID/g' ${i//out.txt/PMID};
+				sed -i '' "s#</a>] #$(printf '\t')#g" ${i//out.txt/PMID};
+				sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" ${i//out.txt/PMID};
+				sed -i '' "s#</a>]#$(printf '\t')#g" ${i//out.txt/PMID};
+				sed -i -e "s/^/$j$(printf '\t')/" ${i//out.txt/PMID};
 				rm $i;
-				echo $j is good.
+				#echo $j is good.
 			done
 
 		#sed -i '' 's/.*PMID/PMID/g' *PMID*;
