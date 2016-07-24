@@ -1,3 +1,40 @@
 #!/usr/local/bin/
 
-cat $1 | perl -e '$i=0;while(< >){if(/^@/&&$i==0){s/^@/>/;print;}elsif($i==1){print;$i=-3}$i++;}' > $2
+#cat rslist | uniq -d > rslistuniq;
+
+now=$(date +"%Y%m%d");
+
+for k in `cat *_vir`; do
+
+	for j in `cat rslist`; do
+		python SNPedia_scrape.py $j;
+
+		for i in *out.txt; do
+			grep ">PMID"  $i > ${i//out.txt/PMID};
+			rm *out.txt;
+		done
+
+		sed -i '' 's/.*PMID/PMID/g' *PMID*;
+		sed -i '' "s#</a>] #$(printf '\t')#g" *PMID*;
+		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" *PMID*;
+		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" /> #$(printf '\t')#g" *PMID*;
+		sed -i '' "s#</a>]#$(printf '\t')#g" *PMID*;
+		sed -i -e "s/^/$j$(printf '\t')/" *PMID*;
+
+	done
+
+	cat Rs* >> tempPMIDlist$now;
+	sort tempPMIDlist$now > tempPMID$now.sort;
+	uniq -d tempPMID$now.sort > tempPMID$now.uniq;
+	grep "Rs"  tempPMID$now.uniq > ${k//vir/PMID}_$now.uniq;
+	rm temp*;
+	rm Rs*;
+
+	echo $k is finished.
+
+done
+
+#cat *PMID.combo >> PMIDlist$now;
+
+
+
