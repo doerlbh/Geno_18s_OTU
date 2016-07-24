@@ -10,29 +10,21 @@ for k in `cat vir_list*`; do
 
 	echo -----------------------
 	echo $k starts. ------------
-	for j in `cat *_vir`; do
+	for j in `cat $k`; do
 		python SNPedia_scrape.py $j;
-
-			for i in *out.txt; do
-				echo $i
-				echo ${i//out.txt/PMID};
-				grep ">PMID"  $i > ${i//out.txt/PMID};
-				sed -i '' 's/.*PMID/PMID/g' ${i//out.txt/PMID};
-				sed -i '' "s#</a>] #$(printf '\t')#g" ${i//out.txt/PMID};
-				sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" ${i//out.txt/PMID};
-				sed -i '' "s#</a>]#$(printf '\t')#g" ${i//out.txt/PMID};
-				sed -i -e "s/^/$j$(printf '\t')/" ${i//out.txt/PMID};
-				rm $i;
-				#echo $j is good.
-			done
-
-		#sed -i '' 's/.*PMID/PMID/g' *PMID*;
-		#sed -i '' "s#</a>] #$(printf '\t')#g" *PMID*;
-		#sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" *PMID*;
-		#sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" /> #$(printf '\t')#g" *PMID*;
-		#sed -i '' "s#</a>]#$(printf '\t')#g" *PMID*;
-		#sed -i -e "s/^/$j$(printf '\t')/" *PMID*;
-
+		#echo $j-out.txt;
+		
+		grep ">PMID"  $j-out.txt > $j-PMID;
+		sed -i '' 's/.*PMID/PMID/g' $j-PMID;
+		sed -i '' "s#</a>] #$(printf '\t')#g" $j-PMID;
+		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" $j-PMID;
+		sed -i '' "s#</a>]#$(printf '\t')#g" $j-PMID;
+		sed -i -e "s/^/$j$(printf '\t')/" $j-PMID;
+		sed -i -e "s/$(printf '\t')$(printf '\t')/$(printf '\t')/" $j-PMID;
+		rm $j-out.txt;
+		
+		#echo $j is good.
+		
 	done
 
 	cat Rs* >> tempPMIDlist$now;
