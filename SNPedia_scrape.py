@@ -1,23 +1,28 @@
 #! python3
 # SNPedia_scrape
 # To download rs information from SNPedia automatically
+# Input from system command line or clipboard
 # by Baihan Lin, July 2016
 
 # read in the list and parse the parameters
 
-from os import system,popen
-import string
-from sys import argv, stdout, exit
-import math, webbrowser, os.path
-
+import webbrowser, sys, pyperclip, requests
 if len(sys.argv) > 1:
     # Get address from command line.
-    address = ' '.join(sys.argv[1:])
+    rs = ' '.join(sys.argv[1:])
+else:
+    # Get address from clipboard.
+    rs = pyperclip.paste()
 
-# TODO: Get address from clipboard.
+webbrowser.open('http://www.snpedia.com/index.php/' + rs)
 
+resmsg = requests.get('http://www.snpedia.com/index.php/' + rs)
+resmsg.raise_for_status()
+outFile = open(rs + '-out.txt', 'wb')
+for chunk in res.iter_content(1000000):
+        outFile.write(chunk)
+outFile.close()
 
-path = '/Users/DoerLBH/Dropbox/git/BakerLab_cmd_scripts/pdb_extraction/'
 
 lrawname = argv[1]
 lname = lrawname[:-5]
