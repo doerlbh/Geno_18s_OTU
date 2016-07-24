@@ -27,7 +27,7 @@ outfname2 = rs + '-PMID.txt'
 
 
 outFile = open(outfname1, 'wb')
-for chunk in resmsg.iter_content(1000000):
+for chunk in resmsg.iter_content(1000000000):
         outFile.write(chunk)
 outFile.close()
 
