@@ -23,11 +23,11 @@ resmsg = requests.get('http://www.snpedia.com/index.php/' + rs)
 resmsg.raise_for_status()
 
 outfname1 = rs + '-out.txt'
-outfname2 = rs + '-PMID.txt'
+#outfname2 = rs + '-PMID.txt'
 
 
 outFile = open(outfname1, 'wb')
-for chunk in resmsg.iter_content(1000000000):
+for chunk in resmsg.iter_content(10000000):
         outFile.write(chunk)
 outFile.close()
 

@@ -10,18 +10,20 @@ for j in `cat rslist`; do
 	for i in *out.txt; do
 		grep ">PMID"  $i > ${i//out.txt/PMID};
 		rm *out.txt;
+		echo anotherone;
 	done
 
-	for k in *e; do
-		cat $k ${k//-e/} > ${k//-e/.combo};
-	done
-
-	sed -i '' 's/.*PMID/PMID/g' *.combo;
-	sed -i '' "s#</a>] #$(printf '\t')#g" *.combo;
-	sed -i -e "s/^/$j$(printf '\t')/" *.combo;
+	sed -i '' 's/.*PMID/PMID/g' *PMID*;
+	sed -i '' "s#</a>] #$(printf '\t')#g" *PMID*;
+	sed -i -e "s/^/$j$(printf '\t')/" *PMID*;
 done
 
-cat *.combo >> PMIDlist$now;
+for k in *e; do
+	cat $k ${k//-e/} > ${k//-e/.combo};
+	rm $k;
+done
+
+cat *PMID.combo >> PMIDlist$now;
 #rm Rs*;
 
 
