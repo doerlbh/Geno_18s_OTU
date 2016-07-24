@@ -7,7 +7,9 @@
 
 # read in the list and parse the parameters
 
-import webbrowser, sys, pyperclip, requests, subprocess
+import webbrowser, sys, pyperclip, requests
+#import subprocess
+
 if len(sys.argv) > 1:
     # Get address from command line.
     rs = ' '.join(sys.argv[1:])
@@ -29,5 +31,5 @@ for chunk in resmsg.iter_content(1000000):
         outFile.write(chunk)
 outFile.close()
 
-bash = "grep ‘>PMID’ " + outfname1 + " > " + outfname2 + "; rm " + outfname1
-subprocess.Popen(bash)
+#bash = "grep \">PMID\" " + outfname1 + " > " + outfname2 + "; rm " + outfname1
+#subprocess.Popen(bash)
