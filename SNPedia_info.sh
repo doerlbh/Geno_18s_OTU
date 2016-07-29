@@ -2,7 +2,7 @@
 # Baihan Lin
 # July 2016
 
-for k in `cat new_vir_list*`; do
+for k in `cat new_vir_list_*`; do
 
 	echo -----------------------
 	echo $k starts. ------------
@@ -22,7 +22,8 @@ for k in `cat new_vir_list*`; do
 		sed -i '' "s#<\/a##g" $j-Gene;
 
 		for l in "cat $j-Gene"; do
-			python SNPedia_scrape.py $l
+			python SNPedia_scrape.py $l || echo no further info on $l
+
 			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
 			sed -i '' "s#<strong class=\"selflink\">##g" $j-Info;
 			sed -i '' "s#</strong>##g" $j-Info;
