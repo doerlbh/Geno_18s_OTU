@@ -21,8 +21,9 @@ for k in new_vir_list_*; do
 		grep "<\/a" $j-Gene-temp > $j-Gene
 		sed -i '' "s#<\/a##g" $j-Gene;
 
-		for l in "cat $j-Gene"; do
-			python SNPedia_scrape.py $l || echo no further info on $l > $j-Info
+		for l in `cat $j-Gene`; do
+			echo gene info > $j-Info
+			python SNPedia_scrape.py $l || echo no further info on $l
 
 			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
 			sed -i '' "s#<strong class=\"selflink\">##g" $j-Info;
@@ -34,19 +35,19 @@ for k in new_vir_list_*; do
 
 			#echo "Mutations in the SCN1A< gene have been associated with <a href=\"/index.php/Severe_myoclonic_epilepsy_in_infancy\" title=\"Severe myoclonic epilepsy in infancy\">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href=\"/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Dravet syndrome (page does not exist)\">Dravet syndrome</a>, forms of <a href=\"/index.php/Epilepsy\" title=\"Epilepsy\">epilepsy</a>. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html\">Washington Post article</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://dravet.org/\">[1]</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.ncbi.nlm.nih.gov/books/NBK1318/\">NCBI Bookshelf</a>" | tr -s '<\a href' '\n'
 
-			rm $l-out.txt;
+			rm $l-out.txt
 		done
 
-		cat $j-Gene | tr '\n' "," > $j-Gene-all;
-		sed -i -e "s/$(printf '\t')//" $j-Gene-all;
+		cat $j-Gene | tr '\n' "," > $j-Gene-all
+		sed -i '' "s/$(printf '\t')//g" $j-Gene-all;
 
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
 		sed -i '' "s#<tr><td width=\"90\">Chromosome</td><td>#$(printf '\t')#g" $j-Chr;
-		sed -i '' "s#</td></tr>#$(printf '\t')#g" $j-Chr;
+		sed -i '' "s#</td></tr>##g" $j-Chr;
 
 		#<tr><td width="90">Position</td><td>166036278</td></tr>
 		sed -i '' "s#<tr><td width=\"90\">Position</td><td>#$(printf '\t')#g" $j-Pos;
-		sed -i '' "s#</td></tr>#$(printf '\t')#g" $j-Pos;
+		sed -i '' "s#</td></tr>##g" $j-Pos;
 
 		grep ">PMID"  $j-out.txt > $j-PMID;
 		sed -i '' 's/.*PMID/PMID/g' $j-PMID;
@@ -56,11 +57,11 @@ for k in new_vir_list_*; do
 		sed -i '' "s#</a>]#$(printf '\t')#g" $j-PMID;
 
 		#sed -i -e "s/^/$j$(printf '\t')$(printf ${k:13})$(printf '\t')$(cat $j-Chr)$(printf '\t')$(cat $j-Pos)$(printf '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)/" $j-PMID;
-		sed -i -e "s/^/$j$(printf '\t')${k:13}$(printf '\t')$(cat $j-Chr)$(printf '\t')$(cat $j-Pos)$(printf '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)/" $j-PMID;
+		sed -i '' -e "s/^/$j$(printf '\t')${k:13}$(printf '\t')$(cat $j-Chr)$(printf '\t')$(cat $j-Pos)$(printf '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)$(printf '\t')/" $j-PMID;
 		
-		sed -i -e "s/$(printf '\t')$(printf '\t')/$(printf '\t')/" $j-PMID;
+		sed -i '' "s/$(printf '\t')$(printf '\t')/$(printf '\t')/g" $j-PMID;
 		
-		sed -i -e "s/$(printf '\t')$(printf '\t')/$(printf '\t')/" $j-PMID;
+		sed -i '' "s/$(printf '\t')$(printf '\t')/$(printf '\t')/g" $j-PMID;
 
 		rm $j-out.txt;
 		
@@ -68,8 +69,8 @@ for k in new_vir_list_*; do
 		
 	done
 
-	cat rs* >> tempPMIDlist;
-	cat Rs* >> tempPMIDlist;
+	cat rs*PMID >> tempPMIDlist;
+	cat Rs*PMID >> tempPMIDlist;
 	sort tempPMIDlist > tempPMID.sort;
 	uniq -d tempPMID.sort > tempPMID.uniq;
 	grep "Rs"  tempPMID.uniq > ${k//vir/PMID}.uniq;
@@ -77,7 +78,7 @@ for k in new_vir_list_*; do
 	rm temp*;
 	rm rs*;
 	rm Rs*;
-	#rm *out.txt
+	rm *out.txt
 
 	echo $k is finished.~~~~~~~~
 
