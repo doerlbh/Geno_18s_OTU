@@ -1,15 +1,13 @@
 #!/usr/local/bin/
+# Baihan Lin
+# July 2016
 
-#cat rslist | uniq -d > rslistuniq;
-
-now=$(date +"%Y%m%d");
-
-ls *_vir > vir_list_$now
-
-for k in `cat vir_list*`; do
+for k in `cat new_vir_list*`; do
 
 	echo -----------------------
 	echo $k starts. ------------
+	echo virus ${k:13}
+
 	for j in `cat $k`; do
 		python SNPedia_scrape.py $j;
 		#echo $j-out.txt;
@@ -21,17 +19,19 @@ for k in `cat vir_list*`; do
 		#<tr><td width="90">Gene</td><td><a href="/index.php/Special:FormEdit/Gene/LOC102724058?redlink=1" class="new" title="LOC102724058 (page does not exist)">LOC102724058</a>, <a href="/index.php/SCN1A" title="SCN1A">SCN1A</a></td></tr>
 		cat $j-Gene | tr "\">" '\n' > $j-Gene-temp
 		grep "<\/a" $j-Gene-temp > $j-Gene
-		sed -i '' "s#<\/a#$(printf '\t')#g" $j-Gene;
+		sed -i '' "s#<\/a##g" $j-Gene;
 
 		for l in "cat $j-Gene"; do
 			python SNPedia_scrape.py $l
 			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
-			sed -i '' "s#<strong class=\"selflink\">#$(printf '\t')#g" $j-Info;
-			sed -i '' "s#<strong class=\"selflink\">#$(printf '\t')#g" $j-Info;
+			sed -i '' "s#<strong class=\"selflink\">##g" $j-Info;
+			sed -i '' "s#</strong>##g" $j-Info;
+			sed -i '' "s#<p>##g" $j-Info;
+			sed -i '' "s#</p>##g" $j-Info;
+
 			#<p>Mutations in the <strong class="selflink">SCN1A</strong> gene have been associated with <a href="/index.php/Severe_myoclonic_epilepsy_in_infancy" title="Severe myoclonic epilepsy in infancy">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href="/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1" class="new" title="Dravet syndrome (page does not exist)">Dravet syndrome</a>, forms of <a href="/index.php/Epilepsy" title="Epilepsy">epilepsy</a>. <a rel="nofollow" class="external text" href="http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html">Washington Post article</a> <a rel="nofollow" class="external autonumber" href="http://dravet.org/">[1]</a> <a rel="nofollow" class="external text" href="http://www.ncbi.nlm.nih.gov/books/NBK1318/">NCBI Bookshelf</a></p>
 
-echo "<p>Mutations in the <strong class=\"selflink\">SCN1A</strong> gene have been associated with <a href=\"/index.php/Severe_myoclonic_epilepsy_in_infancy\" title=\"Severe myoclonic epilepsy in infancy\">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href=\"/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Dravet syndrome (page does not exist)\">Dravet syndrome</a>, forms of <a href=\"/index.php/Epilepsy\" title=\"Epilepsy\">epilepsy</a>. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html\">Washington Post article</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://dravet.org/\">[1]</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.ncbi.nlm.nih.gov/books/NBK1318/\">NCBI Bookshelf</a></p>" | tr "<a" '\n'
-
+			#echo "Mutations in the SCN1A< gene have been associated with <a href=\"/index.php/Severe_myoclonic_epilepsy_in_infancy\" title=\"Severe myoclonic epilepsy in infancy\">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href=\"/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Dravet syndrome (page does not exist)\">Dravet syndrome</a>, forms of <a href=\"/index.php/Epilepsy\" title=\"Epilepsy\">epilepsy</a>. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html\">Washington Post article</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://dravet.org/\">[1]</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.ncbi.nlm.nih.gov/books/NBK1318/\">NCBI Bookshelf</a>" | tr -s '<\a href' '\n'
 
 			rm $l-out.txt
 		done
@@ -53,7 +53,7 @@ echo "<p>Mutations in the <strong class=\"selflink\">SCN1A</strong> gene have be
 		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" $j-PMID;
 		sed -i '' "s#</a>]#$(printf '\t')#g" $j-PMID;
 
-		sed -i -e "s/^/$j$(printf '\t')$(cat $j-Chr)$(cat '\t')$(cat $j-Pos)$(cat '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)/" $j-PMID;
+		sed -i -e "s/^/$j$(printf '\t')$(printf ${k:13})$(printf '\t')$(cat $j-Chr)$(printf '\t')$(cat $j-Pos)$(printf '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)/" $j-PMID;
 		
 		sed -i -e "s/$(printf '\t')$(printf '\t')/$(printf '\t')/" $j-PMID;
 		
