@@ -1,4 +1,6 @@
 #!/usr/local/bin/
+# Baihan Lin
+# July 2016
 
 #cat rslist | uniq -d > rslistuniq;
 
