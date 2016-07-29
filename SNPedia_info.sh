@@ -28,8 +28,8 @@ for k in new_vir_list_*; do
 			echo gene info > $j-Info
 			python SNPedia_scrape.py $l || echo no further info on $l
 
-			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
-			sed -i '' "s#<strong class=\"selflink\">##g" $j-Info;
+			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info || echo no further info on $l
+			sed -i '' "s#<strong class=\"selflink\">##g" $j-Info; 
 			sed -i '' "s#</strong>##g" $j-Info;
 			sed -i '' "s#<p>##g" $j-Info;
 			sed -i '' "s#</p>##g" $j-Info;
@@ -38,7 +38,7 @@ for k in new_vir_list_*; do
 
 			#echo "Mutations in the SCN1A< gene have been associated with <a href=\"/index.php/Severe_myoclonic_epilepsy_in_infancy\" title=\"Severe myoclonic epilepsy in infancy\">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href=\"/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Dravet syndrome (page does not exist)\">Dravet syndrome</a>, forms of <a href=\"/index.php/Epilepsy\" title=\"Epilepsy\">epilepsy</a>. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html\">Washington Post article</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://dravet.org/\">[1]</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.ncbi.nlm.nih.gov/books/NBK1318/\">NCBI Bookshelf</a>" | tr -s '<\a href' '\n'
 
-			rm $l-out.txt
+			rm $l-out.txt || echo no further info on $l
 		done
 
 		cat $j-Gene | tr '\n' "," > $j-Gene-all
@@ -71,17 +71,16 @@ for k in new_vir_list_*; do
 		
 	done
 
-	cat rs*PMID > tempPMIDlist;
-	sort tempPMIDlist > tempPMID.sort;
-	uniq tempPMID.sort > tempPMID.uniq;
-	grep "rs"  tempPMID.uniq > ${k//new_vir_list/all_info}.list;
+	cat rs*PMID > tempPMIDlist_$k;
+	sort tempPMIDlist_$k > tempPMID_$k.sort;
+	uniq tempPMID_$k.sort > tempPMID_$k.uniq;
+	grep "rs"  tempPMID_$k.uniq > ${k//new_vir_list/all_info}.list;
 	#rm *temp*;
-	#rm rs*;
+	rm rs*;
 	#rm Rs*;
 	#rm *sort
 	#rm *uniq
 	#rm *out.txt
-
 	echo $k is finished.~~~~~~~~
 
 done
