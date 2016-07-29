@@ -25,9 +25,11 @@ for k in `cat vir_list*`; do
 
 		for l in "cat $j-Gene"; do
 			python SNPedia_scrape.py $l
-
+			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
 			rm $l-out.txt
 		done
+
+		
 
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
 		sed -i '' "s#<tr><td width="90">Chromosome</td><td>#$(printf '\t')#g" $j-Chr;
