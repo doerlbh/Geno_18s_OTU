@@ -3,7 +3,7 @@
 # July 2016
 
 
-for k in new_vir_list_W*; do
+for k in new_vir_list_*; do
 	echo -----------------------
 	echo $k starts. -----------
 	echo virus ${k:13}
