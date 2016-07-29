@@ -23,6 +23,11 @@ for k in `cat vir_list*`; do
 		grep "<\/a" $j-Gene-temp > $j-Gene
 		sed -i '' "s#<\/a#$(printf '\t')#g" $j-Gene;
 
+		for l in "cat $j-Gene"; do
+			python SNPedia_scrape.py $l
+			
+		done
+
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
 		sed -i '' "s#<tr><td width="90">Chromosome</td><td>#$(printf '\t')#g" $j-Chr;
 		sed -i '' "s#</td></tr>#$(printf '\t')#g" $j-Chr;
