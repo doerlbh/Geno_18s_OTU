@@ -44,6 +44,10 @@ for k in new_vir_list_W*; do
 		cat $j-Info | tr '\n' "," > $j-Info-all
 		cat $j-Info-all > $j-Info
 		echo  >> $j-Info
+		sed -i '' 's#\"##g' $j-Info;
+		sed -i '' 's#/##g' $j-Info;
+		#sed -i '' 's#\"#\\"#g' $j-Info;
+		#sed -i '' 's#\#\\#g' $j-Info;
 		sed -i '' "s/$(printf '\t')//g" $j-Info;
 
 		cat $j-Gene | tr '\n' "," > $j-Gene-all
@@ -80,11 +84,11 @@ for k in new_vir_list_W*; do
 	sort tempPMIDlist_$k > tempPMID_$k.sort;
 	uniq tempPMID_$k.sort > tempPMID_$k.uniq;
 	grep "gene info"  tempPMID_$k.uniq > ${k//new_vir_list/all_info}.list;
-	#rm *temp*;
-	#rm rs*;
+	rm *temp*;
+	rm rs*;
 	#rm Rs*;
-	#rm *sort
-	#rm *uniq
+	rm *sort
+	rm *uniq
 	#rm *out.txt
 	echo $k is finished.~~~~~~~~
 
