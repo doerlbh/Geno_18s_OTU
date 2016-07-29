@@ -25,7 +25,7 @@ for k in new_vir_list_W*; do
 		sed -i '' "s#<\/a##g" $j-Gene;
 
 		for l in `cat $j-Gene`; do
-			echo gene info > $j-Info
+			echo gene info: >> $j-Info
 			python SNPedia_scrape.py $l || echo no further info on $l
 
 			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info || echo no further info on $l
@@ -43,7 +43,8 @@ for k in new_vir_list_W*; do
 
 		cat $j-Info | tr '\n' "," > $j-Info-all
 		cat $j-Info-all > $j-Info
-		echo '\n' >> $j-Info
+		echo  >> $j-Info
+		sed -i '' "s/$(printf '\t')//g" $j-Info;
 
 		cat $j-Gene | tr '\n' "," > $j-Gene-all
 		sed -i '' "s/$(printf '\t')//g" $j-Gene-all;
