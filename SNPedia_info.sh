@@ -26,10 +26,17 @@ for k in `cat vir_list*`; do
 		for l in "cat $j-Gene"; do
 			python SNPedia_scrape.py $l
 			grep "<strong class=\"selflink\">" $l-out.txt >> $j-Info
+			sed -i '' "s#<strong class=\"selflink\">#$(printf '\t')#g" $j-Info;
+			sed -i '' "s#<strong class=\"selflink\">#$(printf '\t')#g" $j-Info;
+			#<p>Mutations in the <strong class="selflink">SCN1A</strong> gene have been associated with <a href="/index.php/Severe_myoclonic_epilepsy_in_infancy" title="Severe myoclonic epilepsy in infancy">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href="/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1" class="new" title="Dravet syndrome (page does not exist)">Dravet syndrome</a>, forms of <a href="/index.php/Epilepsy" title="Epilepsy">epilepsy</a>. <a rel="nofollow" class="external text" href="http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html">Washington Post article</a> <a rel="nofollow" class="external autonumber" href="http://dravet.org/">[1]</a> <a rel="nofollow" class="external text" href="http://www.ncbi.nlm.nih.gov/books/NBK1318/">NCBI Bookshelf</a></p>
+
+echo "<p>Mutations in the <strong class=\"selflink\">SCN1A</strong> gene have been associated with <a href=\"/index.php/Severe_myoclonic_epilepsy_in_infancy\" title=\"Severe myoclonic epilepsy in infancy\">Severe myoclonic epilepsy in infancy</a> (SMEI) and <a href=\"/index.php?title=Dravet_syndrome&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"Dravet syndrome (page does not exist)\">Dravet syndrome</a>, forms of <a href=\"/index.php/Epilepsy\" title=\"Epilepsy\">epilepsy</a>. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.washingtonpost.com/national/health-science/medical-mysteries-seizures-hit-baby-girl-soon-after-she-had-routine-shots/2011/12/21/gIQAfkbAdQ_story_2.html\">Washington Post article</a> <a rel=\"nofollow\" class=\"external autonumber\" href=\"http://dravet.org/\">[1]</a> <a rel=\"nofollow\" class=\"external text\" href=\"http://www.ncbi.nlm.nih.gov/books/NBK1318/\">NCBI Bookshelf</a></p>" | tr "<a" '\n'
+
+
 			rm $l-out.txt
 		done
 
-		
+		cat $j-Gene | tr '\n' "," > $j-Gene-all
 
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
 		sed -i '' "s#<tr><td width="90">Chromosome</td><td>#$(printf '\t')#g" $j-Chr;
@@ -46,7 +53,7 @@ for k in `cat vir_list*`; do
 		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" $j-PMID;
 		sed -i '' "s#</a>]#$(printf '\t')#g" $j-PMID;
 
-		sed -i -e "s/^/$j$(printf '\t')$(cat $j-Chr)$(cat '\t')$(cat $j-Pos)$(cat '\t')$(cat $j-Gene)$(printf '\t')$(cat $j-Info)/" $j-PMID;
+		sed -i -e "s/^/$j$(printf '\t')$(cat $j-Chr)$(cat '\t')$(cat $j-Pos)$(cat '\t')$(cat $j-Gene-all)$(printf '\t')$(cat $j-Info)/" $j-PMID;
 		
 		sed -i -e "s/$(printf '\t')$(printf '\t')/$(printf '\t')/" $j-PMID;
 		
