@@ -25,7 +25,8 @@ for k in `cat vir_list*`; do
 
 		for l in "cat $j-Gene"; do
 			python SNPedia_scrape.py $l
-			
+
+			rm $l-out.txt
 		done
 
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
