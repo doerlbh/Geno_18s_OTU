@@ -1,0 +1,23 @@
+<tr
+<td width=
+90
+
+Gene</td
+<td
+<a href=
+/index.php/Special:FormEdit/Gene/LOC102724058?redlink=1
+ class=
+new
+ title=
+LOC102724058 (page does not exist)
+
+LOC102724058</a
+, <a href=
+/index.php/SCN1A
+ title=
+SCN1A
+
+SCN1A</a
+</td
+</tr
+
