@@ -9,7 +9,7 @@ for k in new_vir_list_*; do
 	echo virus ${k:13}
 
 	sort $k > $k.sort;
-	uniq -d $k.sort > $k.uniq;
+	uniq $k.sort > $k.uniq;
 
 	for j in `cat $k.uniq`; do
 		python SNPedia_scrape.py $j;
@@ -45,17 +45,16 @@ for k in new_vir_list_*; do
 		sed -i '' "s/$(printf '\t')//g" $j-Gene-all;
 
     	#<tr><td width="90">Chromosome</td><td>2</td></tr>
-		sed -i '' "s#<tr><td width=\"90\">Chromosome</td><td>#$(printf '\t')#g" $j-Chr;
+		sed -i '' "s#<tr><td width=\"90\">Chromosome</td><td>##g" $j-Chr;
 		sed -i '' "s#</td></tr>##g" $j-Chr;
 
 		#<tr><td width="90">Position</td><td>166036278</td></tr>
-		sed -i '' "s#<tr><td width=\"90\">Position</td><td>#$(printf '\t')#g" $j-Pos;
+		sed -i '' "s#<tr><td width=\"90\">Position</td><td>##g" $j-Pos;
 		sed -i '' "s#</td></tr>##g" $j-Pos;
 
 		grep ">PMID"  $j-out.txt > $j-PMID;
 		sed -i '' 's/.*PMID/PMID/g' $j-PMID;
 		sed -i '' "s#</a>] #$(printf '\t')#g" $j-PMID;
-
 		sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" $j-PMID;
 		sed -i '' "s#</a>]#$(printf '\t')#g" $j-PMID;
 
@@ -72,18 +71,16 @@ for k in new_vir_list_*; do
 		
 	done
 
-	cat rs*PMID >> tempPMIDlist;
-	cat Rs*PMID >> tempPMIDlist;
+	cat rs*PMID > tempPMIDlist;
 	sort tempPMIDlist > tempPMID.sort;
-	uniq -d tempPMID.sort > tempPMID.uniq;
-	grep "Rs"  tempPMID.uniq > ${k//new_vir_list/all_info}.list;
-	grep "rs"  tempPMID.uniq >> ${k//new_vir_list/all_info}.list;
-	rm *temp*;
-	rm rs*;
-	rm Rs*;
-	rm *sort
-	rm *uniq
-	rm *out.txt
+	uniq tempPMID.sort > tempPMID.uniq;
+	grep "rs"  tempPMID.uniq > ${k//new_vir_list/all_info}.list;
+	#rm *temp*;
+	#rm rs*;
+	#rm Rs*;
+	#rm *sort
+	#rm *uniq
+	#rm *out.txt
 
 	echo $k is finished.~~~~~~~~
 
