@@ -2,15 +2,17 @@
 # Baihan Lin
 # July 2016
 
-for k in `cat new_vir_list_*`; do
 
+for k in new_vir_list_*; do
 	echo -----------------------
-	echo $k starts. ------------
+	echo $k starts. -----------
 	echo virus ${k:13}
 
 	for j in `cat $k`; do
 		python SNPedia_scrape.py $j;
 		#echo $j-out.txt;
+
+		$j=${j,,}
 		
 		grep "Chromosome</td>" $j-out.txt > $j-Chr;
 		grep "Position</td>" $j-out.txt > $j-Pos;
@@ -64,12 +66,12 @@ for k in `cat new_vir_list_*`; do
 		
 	done
 
-	cat Rs* >> tempPMIDlist$now;
+	cat rs* >> tempPMIDlist$now;
 	sort tempPMIDlist$now > tempPMID$now.sort;
 	uniq -d tempPMID$now.sort > tempPMID$now.uniq;
 	grep "Rs"  tempPMID$now.uniq > ${k//vir/PMID}_$now.uniq;
 	rm temp*;
-	rm Rs*;
+	rm rs*;
 
 	echo $k is finished.~~~~~~~~
 
