@@ -8,7 +8,10 @@ for k in new_vir_list_*; do
 	echo $k starts. -----------
 	echo virus ${k:13}
 
-	for j in `cat $k`; do
+	sort $k > $k.sort;
+	uniq -d $k.sort > $k.uniq;
+
+	for j in `cat $k.uniq`; do
 		python SNPedia_scrape.py $j;
 		#echo $j-out.txt;
 		
@@ -73,11 +76,13 @@ for k in new_vir_list_*; do
 	cat Rs*PMID >> tempPMIDlist;
 	sort tempPMIDlist > tempPMID.sort;
 	uniq -d tempPMID.sort > tempPMID.uniq;
-	grep "Rs"  tempPMID.uniq > ${k//vir/PMID}.uniq;
-	grep "rs"  tempPMID.uniq >> ${k//vir/PMID}.uniq;
-	rm temp*;
+	grep "Rs"  tempPMID.uniq > ${k//new_vir_list/all_info}.list;
+	grep "rs"  tempPMID.uniq >> ${k//new_vir_list/all_info}.list;
+	rm *temp*;
 	rm rs*;
 	rm Rs*;
+	rm *sort
+	rm *uniq
 	rm *out.txt
 
 	echo $k is finished.~~~~~~~~
