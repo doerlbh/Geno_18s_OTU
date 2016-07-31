@@ -1,0 +1,5 @@
+"Population","ssID","Submitter","Allele: frequency (count)","Genotype: frequency (count)","Genotype detail"
+"  CSHL-HAPMAP:HapMap-HCB","ss111470515","CSHL-HAPMAP","C: 0.978 (88)G: 0.022 (2)","C|C: 0.956 (43)C|G: 0.044 (2)","      ShowHide          "
+"  CSHL-HAPMAP:HapMap-CEU","ss111470515","CSHL-HAPMAP","C: 0.800 (96)G: 0.200 (24)","C|C: 0.633 (38)C|G: 0.333 (20)G|G: 0.033 (2)","      ShowHide          "
+"  CSHL-HAPMAP:HapMap-JPT","ss111470515","CSHL-HAPMAP","C: 0.989 (87)G: 0.011 (1)","C|C: 0.977 (43)C|G: 0.023 (1)","      ShowHide          "
+"  CSHL-HAPMAP:HapMap-YRI","ss111470515","CSHL-HAPMAP","C: 0.925 (111)G: 0.075 (9)","C|C: 0.850 (51)C|G: 0.150 (9)","      ShowHide          "
