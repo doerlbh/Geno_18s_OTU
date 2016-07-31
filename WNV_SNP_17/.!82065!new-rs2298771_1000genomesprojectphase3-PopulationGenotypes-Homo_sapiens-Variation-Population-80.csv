@@ -1,0 +1,3 @@
+"Population","Allele: frequency (count)","Genotype: frequency (count)","Genotype detail"
+"1000GENOMES:phase_3:ALL","C: 0.211 (1059)T: 0.789 (3949)","C|C: 0.057 (142)C|T: 0.310 (775)T|T: 0.634 (1587)"
+"1000GENOMES:phase_3:AFR","C: 0.154 (204)T: 0.846 (1118)","C|C: 0.032 (21)C|T: 0.245 (162)T|T: 0.723 (478)"
