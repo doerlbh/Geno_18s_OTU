@@ -1,0 +1,4 @@
+Population,  CSHL-HAPMAP:HapMap-HCB,  CSHL-HAPMAP:HapMap-HCB,  CSHL-HAPMAP:HapMap-CEU,  CSHL-HAPMAP:HapMap-CEU,  CSHL-HAPMAP:HapMap-JPT,  CSHL-HAPMAP:HapMap-JPT,  CSHL-HAPMAP:HapMap-YRI,  CSHL-HAPMAP:HapMap-YRI
+Allele: frequency (count),G: 0.352 (31),ss69120827,G: 0.358 (43),ss69120827,G: 0.182 (16),ss69120827,C: 1.000 (120),ss69120827
+,C: 0.648 (57),-,C: 0.642 (77),-,C: 0.818 (72),-,C|C: 1.000 (60),-
+Genotype: frequency (count),G|G: 0.091 (4),G: 0.367 (33),G|G: 0.100 (6),G: 0.358 (43),C|C: 0.636 (28),G: 0.178 (16),,C: 1.000 (120)

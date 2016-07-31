@@ -1,0 +1,5 @@
+"Population","Allele: frequency (count)","","Genotype: frequency (count)","","","Genotype detail"
+"  CSHL-HAPMAP:HapMap-HCB","A: 0.189 (17)","G: 0.811 (73)","A|A: 0.067 (3)","A|G: 0.244 (11)","G|G: 0.689 (31)",""
+"  CSHL-HAPMAP:HapMap-CEU","A: 0.833 (100)","G: 0.167 (20)","A|A: 0.700 (42)","A|G: 0.267 (16)","G|G: 0.033 (2)",""
+"  CSHL-HAPMAP:HapMap-JPT","A: 0.256 (22)","G: 0.744 (64)","A|A: 0.093 (4)","A|G: 0.326 (14)","G|G: 0.581 (25)",""
+"  CSHL-HAPMAP:HapMap-YRI","A: 0.325 (39)","G: 0.675 (81)","A|A: 0.117 (7)","A|G: 0.417 (25)","G|G: 0.467 (28)",""
