@@ -5,20 +5,14 @@
 now=$(date +"%Y%m%d");
 
 for i in *csv; do
-	
 	cp $i new-$i
 	sed -i '' "s/)/)\",\"/g" new-$i;
 	sed -i '' "s/\"ss.*-HAPMAP\",//g" new-$i;
 	sed -i '' "s/,\"      ShowHide          \"//g" new-$i;
-
-
-	
-	sed -i '' "s#</a>] #$(printf '\t')#g" *PMID*;
-	sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" />#$(printf '\t')#g" *PMID*;
-	sed -i '' "s#</a><a href=\"/index.php/File:OA-icon.png\" class=\"image\"><img alt=\"OA-icon.png\" src=\"https://media.snpedia.com/images/5/5b/OA-icon.png\" width=\"15\" height=\"15\" /> #$(printf '\t')#g" *PMID*;
-	sed -i '' "s#</a>]#$(printf '\t')#g" *PMID*;
-	sed -i -e "s/^/$j$(printf '\t')/" *PMID*;
-
+	sed -i '' "s/\",\"\",\"/\",\"/g" new-$i;
+	sed -i '' "s/\"ssID\",\"Submitter\",//g" new-$i;
+	sed -i '' "s/(count)\",\"/(count)\",\"\",\"/g" new-$i;
+	sed -i '' "s/\"Genotype detail\"/\"\",\"Genotype detail\"/g" new-$i;
 done
 
 #for k in *e; do
