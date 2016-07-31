@@ -13,7 +13,7 @@ for i in *csv; do
 	sed -i '' "s/\"ssID\",\"Submitter\",//g" new-$i;
 	sed -i '' "s/,\"Genotype detail\"/,\"\",\"\"/g" new-$i;
 	sed -i '' "s/(count)\",\"/(count)\",\"\",\"/g" new-$i;
-	sed -i '' "s/\"(/1.000 \"(/g" new-$i;
+	sed -i '' "s/\"(/\"1.000 (/g" new-$i;
 	sed -i '' "s/1.000 )//g" new-$i;
 	python /Users/DoerLBH/Dropbox/git/Geno_SNP_18s_OTU/csv_transpose.py new-$i
 done
